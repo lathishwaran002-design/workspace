@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ──────────────────────────────────────── */
+:root {
+  --bg-base:        #080b12;
+  --bg-surface:     #0e1420;
+  --bg-card:        #111827;
+  --bg-card-hover:  #151e2e;
+  --border:         rgba(255,255,255,0.07);
+  --border-accent:  rgba(251,146,60,0.35);
+  --text-primary:   #f1f5f9;
+  --text-secondary: #94a3b8;
+  --text-muted:     #475569;
+  --accent:         #fb923c;
+  --accent-bright:  #f97316;
+  --accent-glow:    rgba(251,146,60,0.25);
+  --accent-deep:    rgba(251,146,60,0.08);
+  --success:        #10b981;
+  --success-glow:   rgba(16,185,129,0.25);
+  --amber:          #fbbf24;
+  --radius-card:    1.25rem;
+  --radius-btn:     0.875rem;
+}
+
+/* ─── Base ───────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+
+/* ─── Mono font util ─────────────────────────────────────── */
+.font-mono { font-family: 'JetBrains Mono', monospace; }
+
+/* ─── Glass card ─────────────────────────────────────────── */
+.glass {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.glass-accent {
+  background: var(--accent-deep);
+  border: 1px solid var(--border-accent);
+  backdrop-filter: blur(16px);
+}
+
+/* ─── Glow effects ───────────────────────────────────────── */
+.glow-orange { box-shadow: 0 0 24px var(--accent-glow), 0 0 48px rgba(251,146,60,0.1); }
+.glow-green  { box-shadow: 0 0 24px var(--success-glow); }
+
+/* ─── Animated gradient bg ───────────────────────────────── */
+.gradient-bg {
+  background:
+    radial-gradient(ellipse 70% 50% at 10% 20%, rgba(251,146,60,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 80%, rgba(16,185,129,0.04) 0%, transparent 60%),
+    var(--bg-base);
+}
+
+/* ─── Accent button ──────────────────────────────────────── */
+.btn-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, #ea580c 100%);
+  color: #fff;
+  font-weight: 700;
+  border-radius: var(--radius-btn);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 20px var(--accent-glow);
+}
+.btn-accent:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 28px rgba(251,146,60,0.4);
+}
+.btn-accent:active { transform: translateY(0); }
+.btn-accent:disabled {
+  background: #1e293b;
+  color: var(--text-muted);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Input ──────────────────────────────────────────────── */
+.input-dark {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--text-primary);
+  border-radius: var(--radius-btn);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.input-dark::placeholder { color: var(--text-muted); }
+.input-dark:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(251,146,60,0.12);
+}
+
+/* ─── Status badge ───────────────────────────────────────── */
+.badge-queued    { background: rgba(251,191,36,0.12); color: #fbbf24; border: 1px solid rgba(251,191,36,0.25); }
+.badge-preparing { background: rgba(251,146,60,0.12); color: #fb923c; border: 1px solid rgba(251,146,60,0.3); }
+.badge-ready     { background: rgba(16,185,129,0.12); color: #10b981; border: 1px solid rgba(16,185,129,0.25); }
+
+/* ─── Shine animation ────────────────────────────────────── */
+@keyframes shine {
+  0%   { background-position: 200% center; }
+  100% { background-position: -200% center; }
+}
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shine 2.5s linear infinite;
+}
+
+/* ─── Pulse dot ──────────────────────────────────────────── */
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+.pulse-dot {
+  width: 8px; height: 8px;
+  background: var(--success);
+  border-radius: 50%;
+  animation: pulse-dot 1.5s ease-in-out infinite;
+  box-shadow: 0 0 8px var(--success);
+}
+
+/* ─── Fade-in animation ──────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.4s ease both; }
+
+/* ─── Tag pill ───────────────────────────────────────────── */
+.pill {
+  padding: 0.25rem 0.75rem;
+  border-radius: 99px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s;
+  border: 1px solid var(--border);
+  color: var(--text-secondary);
+  background: transparent;
+}
+.pill:hover { border-color: var(--accent); color: var(--accent); }
+.pill.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 2px 12px var(--accent-glow);
+}

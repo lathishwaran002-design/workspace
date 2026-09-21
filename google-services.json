@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1054300516854",
+    "project_id": "workshop-project-c2c97",
+    "storage_bucket": "workshop-project-c2c97.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054300516854:android:d65195242ef7a25a3f17d7",
+        "android_client_info": {
+          "package_name": "com.lathees.in"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwXmO1f2diDafbuvzG1ma2nwt4HtE5uvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
