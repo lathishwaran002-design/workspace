@@ -19,7 +19,7 @@ export default function OrderTracking() {
 
     const pollStatus = async () => {
       try {
-        const res = await fetch(`http://localhost:8000/api/orders/status/${order.order_id}`);
+        const res = await fetch(`/api/orders/status/${order.order_id}`);
         if (res.ok) {
           const data = await res.json();
           if (data.order?.status) {
@@ -68,7 +68,7 @@ export default function OrderTracking() {
 
   const submitReview = async () => {
     try {
-      await fetch('http://localhost:8000/api/reviews/add', {
+      await fetch('/api/reviews/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

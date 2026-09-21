@@ -13,7 +13,7 @@ export default function KitchenDashboard() {
   const fetchQueue = async () => {
     setLoading(true);
     try {
-      const res = await fetch('http://localhost:8000/api/orders/queue');
+      const res = await fetch('/api/orders/queue');
       const data = await res.json();
       setQueue(data.queue || []);
       setLastUpdated(new Date());
@@ -35,7 +35,7 @@ export default function KitchenDashboard() {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      await fetch('http://localhost:8000/api/orders/update-status', {
+      await fetch('/api/orders/update-status', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ order_id: orderId, status: newStatus })

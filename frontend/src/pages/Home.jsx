@@ -27,7 +27,7 @@ export default function Home() {
   useEffect(() => {
     if (location) {
       setLoading(true);
-      fetch(`http://localhost:8000/api/restaurants/nearby?lat=${location.lat}&lng=${location.lng}&radius_km=10`)
+      fetch(`/api/restaurants/nearby?lat=${location.lat}&lng=${location.lng}&radius_km=10`)
         .then(res => res.json())
         .then(data => {
           setRestaurants(data.restaurants || []);
@@ -103,7 +103,7 @@ export default function Home() {
     }));
 
     try {
-      const res = await fetch('http://localhost:8000/api/orders/create', {
+      const res = await fetch('/api/orders/create', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
