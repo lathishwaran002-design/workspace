@@ -66,8 +66,9 @@ export default function Login() {
         const error = await response.json();
         alert(error.detail || 'An error occurred');
       }
-    } catch {
-      alert('Could not connect to server. Ensure the backend is running.');
+    } catch (err) {
+      console.error(err);
+      alert(`Connection error: ${err.message}. Ensure the Python backend is running and handling /api requests.`);
     } finally {
       setLoading(false);
     }
