@@ -15,6 +15,12 @@ class UserLogin(BaseModel):
     email: str
     password: str
 
+class GoogleLogin(BaseModel):
+    email: str
+    username: str
+    id_token: str | None = None
+    photo_url: str | None = None
+
 @router.post("/register")
 async def register(user: UserRegister):
     if user.email in users_db:
@@ -30,7 +36,7 @@ async def register(user: UserRegister):
 @router.post("/login")
 async def login(user: UserLogin):
     db_user = users_db.get(user.email)
-    if not db_user or db_user["password"] != user.password:
+    if not db_user or db_user.get("password") != user.password:
         raise HTTPException(status_code=401, detail="Invalid credentials")
     
     return {
@@ -41,3 +47,28 @@ async def login(user: UserLogin):
         },
         "token": "mock-jwt-token"
     }
+
+@router.post("/google")
+async def google_login(data: GoogleLogin):
+    if data.email not in users_db:
+        users_db[data.email] = {
+            "username": data.username,
+            "email": data.email,
+            "photo_url": data.photo_url,
+            "provider": "google"
+        }
+    else:
+        users_db[data.email]["username"] = data.username
+        if data.photo_url:
+            users_db[data.email]["photo_url"] = data.photo_url
+
+    return {
+        "message": "Google authentication successful",
+        "user": {
+            "username": users_db[data.email]["username"],
+            "email": data.email,
+            "photo_url": users_db[data.email].get("photo_url")
+        },
+        "token": "mock-google-jwt-token"
+    }
+

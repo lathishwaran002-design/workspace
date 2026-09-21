@@ -18,7 +18,12 @@ def initialize_firebase():
                 firebase_admin.initialize_app()
         except Exception as e:
             print(f"Error initializing Firebase: {e}")
-            raise
+            # Do not raise the exception so the app can still start without Firebase
 
 initialize_firebase()
-db = firestore.client()
+
+try:
+    db = firestore.client()
+except Exception as e:
+    print(f"Error initializing Firestore client: {e}")
+    db = None
